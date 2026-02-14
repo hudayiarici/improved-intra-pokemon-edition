@@ -150,11 +150,7 @@ const trainerList = [
 	{ name: "Professor Oak", id: 33 }
 ];
 
-let isApplying = false;
-
-async function applyPokemonNames(force = false) {
-	if (isApplying) return;
-	isApplying = true;
+async function applyPokemonNames() {
 	try {
 		// Ensure we have all pokemon names loaded
 		await fetchAllPokemonNames();
@@ -174,11 +170,6 @@ async function applyPokemonNames(force = false) {
 				customPokeCache = localData["custom-pokemon"] || {};
 			}
 			isCacheLoading = false;
-		}
-
-		// If forced, clear existing containers to re-apply
-		if (force) {
-			document.querySelectorAll(".pokemon-container").forEach(c => c.remove());
 		}
 
 		// 1. Broad titles and empty states replacement
@@ -288,9 +279,7 @@ async function applyPokemonNames(force = false) {
 							// Sync globally (Supabase)
 							await updateGlobalPokemon(login, found.name);
 							
-							// Force re-apply immediately
-							document.querySelectorAll(".pokemon-container").forEach(c => c.remove());
-							applyPokemonNames();
+							alert("Pokemon updated successfully! Please refresh the page to see your new partner.");
 						} else {
 								alert("Pokemon not found! Make sure you spelled it correctly (e.g. Bulbasaur, Rayquaza, Zacian).");
 							}
@@ -304,7 +293,6 @@ async function applyPokemonNames(force = false) {
 			}
 		});
 	} catch (e) {}
-	isApplying = false;
 }
 
 function setGeneralImprovements() {
