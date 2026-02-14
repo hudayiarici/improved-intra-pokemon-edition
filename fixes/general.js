@@ -210,15 +210,6 @@ async function applyPokemonNames() {
 			const isOwnDashboard = window.location.hostname === "profile.intra.42.fr" && window.location.pathname === "/";
 			const isMainProfile = (window.location.pathname.includes("/users/" + login) || isOwnDashboard) && !el.closest(".patronage-item");
 			
-			// Manual Mappings Overrides
-			const manualMappings = {
-				"muhamoz": { name: "Charmander", id: 4 },
-				"asobolev": { name: "Pikachu", id: 25 },
-				"acelik": { name: "Squirtle", id: 7 },
-				"beeligul": { name: "Mewtwo", id: 150 },
-				"harici": { name: "Magmar", id: 126 }
-			};
-
 			// Absolute Trainer Detection: Scan between titles
 			let isTrainerSection = false;
 			const allTitles = document.querySelectorAll("h4, .profile-title");
@@ -245,8 +236,6 @@ async function applyPokemonNames() {
 					const pokeName = customPokeCache[login];
 					const foundPoke = pokemonList.find(p => p.name.toLowerCase() === pokeName.toLowerCase());
 					pokeData = foundPoke ? { ...foundPoke } : getPokeDataForUser(login, isTrainerSection);
-				} else if (manualMappings[login]) {
-					pokeData = { ...manualMappings[login] };
 				} else {
 					pokeData = getPokeDataForUser(login, isTrainerSection);
 				}
