@@ -969,63 +969,55 @@ li.scaleteam-list-item .comment {
 	
 	       
 	
-	                            .pokemon-sprite {
+	                                   .pokemon-sprite {
 	
 	       
 	
-	                                width: 40px;
+	                                       width: 42px;
 	
 	       
 	
-	                                height: 40px;
+	                                       height: 42px;
 	
 	       
 	
-	                                vertical-align: middle;
+	                                       vertical-align: middle;
 	
 	       
 	
-	                                image-rendering: pixelated;
+	                                       image-rendering: pixelated;
 	
 	       
 	
-	                                margin-top: -5px;
+	                                       cursor: help; /* Indicates there is a tooltip */
 	
 	       
 	
-	                            }
+	                                   }
 	
 	       
 	
-	                     
+	                            
 	
 	       
 	
-	                            .pokemon-container {
+	                                   .pokemon-container {
 	
 	       
 	
-	                                display: inline-flex;
+	                                       display: inline-block;
 	
 	       
 	
-	                                flex-direction: column;
+	                                       vertical-align: middle;
 	
 	       
 	
-	                                align-items: center;
+	                                       margin-left: 8px;
 	
 	       
 	
-	                                vertical-align: middle;
-	
-	       
-	
-	                                margin-left: 5px;
-	
-	       
-	
-	                            }
+	                                   }
 	
 	       
 	

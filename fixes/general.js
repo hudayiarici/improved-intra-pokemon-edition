@@ -91,21 +91,10 @@ function applyPokemonNames() {
 				const img = document.createElement("img");
 				img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeData.id}.png`;
 				img.className = "pokemon-sprite";
+				// Tooltip effect: show name on hover
+				img.title = isMainProfile && !isPatronage ? `${pokeData.name} (Your Pokemon)` : pokeData.name;
 				
-				const nameSpan = document.createElement("span");
-				nameSpan.className = "pokemon-name";
-				
-				if (isMainProfile && !isPatronage) {
-					nameSpan.style.cssText = "font-size: 0.75em; margin-left: 5px; color: #ff1f1f; font-weight: bold;";
-					nameSpan.innerText = "(" + pokeData.name + ")";
-					container.appendChild(img);
-					container.appendChild(nameSpan);
-				} else {
-					nameSpan.style.cssText = "font-size: 0.8em; display: block; margin-top: -5px; color: #ff1f1f; font-weight: bold;";
-					nameSpan.innerText = pokeData.name;
-					container.appendChild(img);
-					container.appendChild(nameSpan);
-				}
+				container.appendChild(img);
 				el.appendChild(container);
 			}
 		});
