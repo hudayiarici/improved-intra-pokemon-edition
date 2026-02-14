@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   profiles.js                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: harici <harici@student.42istanbul.com.tr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 01:01:42 by fbes              #+#    #+#             */
-/*   Updated: 2025/07/02 10:44:18 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/02/14 10:27:56 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 // everything for custom profiles
 
@@ -201,7 +203,7 @@ async function showOutstandings() {
 			else for (const projectsUserId in json["data"]) {
 				let mainProjItem = document.querySelector(".main-project-item a[href*='/projects_users/"+projectsUserId+"']");
 				let is_subproject = false;
-				
+
 				if (!mainProjItem) {
 					// if we don't find the project we try again for the subprojetcs (rushes for example)
 					mainProjItem = document.querySelector(".parent.project-item a[href*='/projects_users/"+projectsUserId+"']");
@@ -218,7 +220,7 @@ async function showOutstandings() {
 					while (!mainProjItem.classList.contains("project-item") && mainProjItem.parentNode) {
 						mainProjItem = mainProjItem.parentNode;
 					}
-				} else {		
+				} else {
 					while (!mainProjItem.classList.contains("main-project-item") && mainProjItem.parentNode) {
 						mainProjItem = mainProjItem.parentNode;
 					}

@@ -3,7 +3,7 @@
 /*                                                        ::::::::            */
 /*   general.js                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: harici <harici@student.42.fr>               +#+                     */
+/*   By: harici <harici@student.42istanbul.com.tr    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/28 18:52:19 by fbes          #+#    #+#                 */
 /*   Updated: 2026/02/14 15:45:00 by harici         ########   odam.nl         */
