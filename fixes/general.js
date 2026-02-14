@@ -150,7 +150,11 @@ const trainerList = [
 	{ name: "Professor Oak", id: 33 }
 ];
 
+let isApplying = false;
+
 async function applyPokemonNames(force = false) {
+	if (isApplying) return;
+	isApplying = true;
 	try {
 		// Ensure we have all pokemon names loaded
 		await fetchAllPokemonNames();
@@ -284,10 +288,9 @@ async function applyPokemonNames(force = false) {
 							// Sync globally (Supabase)
 							await updateGlobalPokemon(login, found.name);
 							
-							// Just remove all existing containers. 
-							// The MutationObserver will automatically trigger applyPokemonNames() 
-							// and re-add them with the new data from customPokeCache.
+							// Force re-apply immediately
 							document.querySelectorAll(".pokemon-container").forEach(c => c.remove());
+							applyPokemonNames();
 						} else {
 								alert("Pokemon not found! Make sure you spelled it correctly (e.g. Bulbasaur, Rayquaza, Zacian).");
 							}
@@ -301,6 +304,7 @@ async function applyPokemonNames(force = false) {
 			}
 		});
 	} catch (e) {}
+	isApplying = false;
 }
 
 function setGeneralImprovements() {
