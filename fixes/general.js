@@ -28,19 +28,43 @@ function createMenuLink(userMenu, href, text, position) {
 	}
 }
 
-const pokemonList = ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"];
-const trainerList = [
-	{ name: "Ash (Red)", id: 1 },
-	{ name: "Gary (Blue)", id: 2 },
-	{ name: "Brock", id: 48 },
-	{ name: "Misty", id: 49 },
-	{ name: "Lt. Surge", id: 18 },
-	{ name: "Erika", id: 20 },
-	{ name: "Sabrina", id: 24 },
-	{ name: "Blaine", id: 26 },
-	{ name: "Giovanni", id: 28 },
-	{ name: "Professor Oak", id: 33 }
-];
+let pokemonList = [];
+let isPokemonListLoading = false;
+
+async function fetchAllPokemonNames() {
+	if (pokemonList.length > 0) return pokemonList;
+	if (isPokemonListLoading) return new Promise(resolve => {
+		const interval = setInterval(() => {
+			if (!isPokemonListLoading) {
+				clearInterval(interval);
+				resolve(pokemonList);
+			}
+		}, 100);
+	});
+
+	isPokemonListLoading = true;
+	try {
+		const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=2000");
+		const data = await response.json();
+		pokemonList = data.results.map(p => {
+			return {
+				name: p.name.charAt(0).toUpperCase() + p.name.slice(1),
+				id: p.url.split("/").filter(Boolean).pop()
+			};
+		});
+		iConsole.log(`Loaded ${pokemonList.length} Pokemon from PokeAPI`);
+	} catch (err) {
+		iConsole.error("Could not fetch Pokemon list", err);
+		pokemonList = [
+			{ name: "Bulbasaur", id: 1 },
+			{ name: "Charmander", id: 4 },
+			{ name: "Squirtle", id: 7 },
+			{ name: "Pikachu", id: 25 }
+		];
+	}
+	isPokemonListLoading = false;
+	return pokemonList;
+}
 
 function getPokeDataForUser(login, isTrainer = false) {
 	let hash = 0;
@@ -51,8 +75,14 @@ function getPokeDataForUser(login, isTrainer = false) {
 		const index = Math.abs(hash) % trainerList.length;
 		return { ...trainerList[index], type: "trainer" };
 	} else {
-		const index = Math.abs(hash) % pokemonList.length;
-		return { name: pokemonList[index], id: index + 1, type: "pokemon" };
+		const listToUse = pokemonList.length > 0 ? pokemonList : [
+			{ name: "Bulbasaur", id: 1 },
+			{ name: "Charmander", id: 4 },
+			{ name: "Squirtle", id: 7 },
+			{ name: "Pikachu", id: 25 }
+		];
+		const index = Math.abs(hash) % listToUse.length;
+		return { ...listToUse[index], type: "pokemon" };
 	}
 }
 
@@ -107,8 +137,24 @@ async function updateGlobalPokemon(username, pokemonName) {
 	}
 }
 
+const trainerList = [
+	{ name: "Ash (Red)", id: 1 },
+	{ name: "Gary (Blue)", id: 2 },
+	{ name: "Brock", id: 48 },
+	{ name: "Misty", id: 49 },
+	{ name: "Lt. Surge", id: 18 },
+	{ name: "Erika", id: 20 },
+	{ name: "Sabrina", id: 24 },
+	{ name: "Blaine", id: 26 },
+	{ name: "Giovanni", id: 28 },
+	{ name: "Professor Oak", id: 33 }
+];
+
 async function applyPokemonNames() {
 	try {
+		// Ensure we have all pokemon names loaded
+		await fetchAllPokemonNames();
+
 		// Pre-load custom pokemon from Supabase first, then fallback to local
 		if (customPokeCache === null) {
 			if (isCacheLoading) return;
@@ -197,8 +243,8 @@ async function applyPokemonNames() {
 				let pokeData;
 				if (customPokeCache[login]) {
 					const pokeName = customPokeCache[login];
-					const pokeIndex = pokemonList.indexOf(pokeName);
-					pokeData = { name: pokeName, id: pokeIndex + 1 };
+					const foundPoke = pokemonList.find(p => p.name.toLowerCase() === pokeName.toLowerCase());
+					pokeData = foundPoke ? { ...foundPoke } : getPokeDataForUser(login, isTrainerSection);
 				} else if (manualMappings[login]) {
 					pokeData = { ...manualMappings[login] };
 				} else {
@@ -220,22 +266,24 @@ async function applyPokemonNames() {
 					img.style.cursor = "pointer";
 					img.addEventListener("click", async function(e) {
 						e.preventDefault();
-						const newPoke = prompt("Choose your Pokemon (e.g. Pikachu, Mewtwo, Charizard):", pokeData.name);
-						if (newPoke && pokemonList.includes(newPoke.charAt(0).toUpperCase() + newPoke.slice(1).toLowerCase())) {
-							const formattedPoke = newPoke.charAt(0).toUpperCase() + newPoke.slice(1).toLowerCase();
-							const targetLogin = login; // captures the current login
-							customPokeCache[targetLogin] = formattedPoke;
-							
-							// Sync locally
-							await improvedStorage.set({ "custom-pokemon": customPokeCache });
-							
-							// Sync globally (Supabase)
-							await updateGlobalPokemon(targetLogin, formattedPoke);
-							
-							// Trigger a refresh of the icons on the page
-							applyPokemonNames();
-						} else if (newPoke) {
-							alert("Pokemon not found in Gen 1 list!");
+						const newPoke = prompt("Choose your Pokemon (e.g. Pikachu, Lucario, Greninja):", pokeData.name);
+						if (newPoke) {
+							const searchName = newPoke.toLowerCase().trim();
+							const found = pokemonList.find(p => p.name.toLowerCase() === searchName);
+							if (found) {
+								customPokeCache[login] = found.name;
+								
+								// Sync locally
+								await improvedStorage.set({ "custom-pokemon": customPokeCache });
+								
+								// Sync globally (Supabase)
+								await updateGlobalPokemon(login, found.name);
+								
+								// Trigger a refresh of the icons on the page
+								applyPokemonNames();
+							} else {
+								alert("Pokemon not found! Make sure you spelled it correctly (e.g. Bulbasaur, Rayquaza, Zacian).");
+							}
 						}
 					});
 				}
