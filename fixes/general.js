@@ -56,9 +56,9 @@ function getPokeDataForUser(login, isTrainer = false) {
 	}
 }
 
-// Supabase Configuration (Replace with your own keys)
-const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+// Supabase Configuration
+const SUPABASE_URL = 'https://zaxlzvhmflmihyzbvxei.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpheGx6dmhtZmxtaWh5emJ2eGVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEwMzYzNzgsImV4cCI6MjA4NjYxMjM3OH0.Haf84dYUuu-j69MZR9cR1YRjQ6czOJO25JjbjMyE0GY';
 
 // Shared cache for custom pokemon choices
 let customPokeCache = null;
