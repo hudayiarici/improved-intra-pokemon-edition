@@ -950,5 +950,28 @@ textarea {
 #scales-list-container .feedback-item > span,
 li.scaleteam-list-item .comment {
 	word-break: break-word !important;
-	white-space: pre-wrap !important;
-}
+	        white-space: pre-wrap !important;
+	}
+	
+	/* Pokemon Edition Styles */
+	.profile-title {
+	    color: #ffcb05 !important; /* Pokemon Yellow */
+	    text-shadow: 1px 1px #3b4cca; /* Pokemon Blue */
+	}
+	
+	.pokemon-name {
+	    color: #ff1f1f;
+	    font-weight: bold;
+	}
+	
+	.patronage-item a::before {
+	    content: "🔴";
+	    margin-right: 5px;
+	    font-size: 0.8em;
+	}
+	
+	/* Safety: hide pokemon names in level bar or unwanted areas */
+	.user-level .pokemon-name, 
+	.cursus-list .pokemon-name {
+	    display: none !important;
+	}

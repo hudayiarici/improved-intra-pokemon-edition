@@ -1,10 +1,9 @@
 {
-	"manifest_version": 3,
-	"name": "__MSG_appName__",
-	"short_name": "__MSG_shortAppName__",
+	"manifest_version": 2,
+	"name": "Improved Intra: Pokemon Edition",
+	"short_name": "Intra Pokemon",
 	"version": "4.4.2",
-	"version_name": "4.4.2",
-	"description": "__MSG_appDesc__",
+	"description": "The ultimate Pokemon trainer extension for 42's Intranet!",
 	"default_locale": "en",
 	"icons": {
 		"16": "images/logo16.png",
@@ -17,34 +16,39 @@
 		"512": "images/logo512.png"
 	},
 	"incognito": "spanning",
-	"options_page": "options/options.html",
-	"action": {
+	"browser_specific_settings": {
+		"gecko": {
+			"update_url": "https://raw.githubusercontent.com/FreekBes/improved_intra/main/updates.json",
+			"strict_min_version": "102.0"
+		}
+	},
+	"browser_action": {
 		"default_popup": "generic/popup/popup.html"
 	},
+	"options_ui": {
+		"page": "options/options.html",
+		"browser_style": false,
+		"open_in_tab": true
+	},
 	"permissions": [
-		"storage", "scripting"
-	],
-	"host_permissions": [
+		"*://*.intra.42.fr/*",
 		"https://iintra.freekb.es/*",
-		"https://*.intra.42.fr/*"
+		"https://darkintra.freekb.es/*",
+		"storage",
+		"scripting"
 	],
 	"web_accessible_resources": [
-		{
-			"resources": [
-				"generic/inject.js",
-				"features/themes/apply.css",
-				"features/themes/light.css",
-				"features/themes/dark.css",
-				"features/themes/colors/cetus.css",
-				"features/themes/colors/green.css",
-				"features/themes/colors/pyxis.css",
-				"features/themes/colors/vela.css",
-				"features/themes/colors/windows.css",
-				"features/themes/colors/yellow.css",
-				"options/options.html"
-			],
-			"matches": [ "*://*.intra.42.fr/*", "*://iintra.freekb.es/*", "*://darkintra.freekb.es/*" ]
-		}
+		"options/options.html",
+		"features/themes/apply.css",
+		"features/themes/light.css",
+		"features/themes/dark.css",
+		"features/themes/colors/cetus.css",
+		"features/themes/colors/green.css",
+		"features/themes/colors/pyxis.css",
+		"features/themes/colors/vela.css",
+		"features/themes/colors/windows.css",
+		"features/themes/colors/yellow.css",
+		"generic/inject.js"
 	],
 	"content_scripts": [
 		{
@@ -71,7 +75,7 @@
 		{
 			"matches": [ "*://signin.intra.42.fr/users/sign_in" ],
 			"js": [ "options/unsync.js" ],
-			"run_at": "document_end"
+			"run_at": "document_start"
 		},
 		{
 			"matches": [ "*://iintra.freekb.es/*" ],
@@ -111,7 +115,15 @@
 		}
 	],
 	"background": {
-		"service_worker": "sw.js"
+		"scripts": [
+			"generic/console.js",
+			"background/main.js",
+			"generic/lib/storage.js",
+			"generic/lib/network.js",
+			"background/comm.js",
+			"background/options.js",
+			"background/omnibox.js"
+		]
 	},
 	"omnibox": {
 		"keyword": "intra"

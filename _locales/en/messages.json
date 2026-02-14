@@ -1,14 +1,14 @@
 {
 	"appName": {
-		"message": "Improved Intra 42",
+		"message": "Improved Intra: Pokemon Edition",
 		"description": "The name of the extension"
 	},
 	"shortAppName": {
-		"message": "Improved Intra 42",
+		"message": "Intra Pokemon",
 		"description": "The short name of the extension"
 	},
 	"appDesc": {
-		"message": "The ultimate browser extension for 42's Intranet, adding many improvements, such as dark mode, customizable profiles and much more!",
+		"message": "The ultimate Pokemon trainer extension for 42's Intranet! Catch 'em all while coding.",
 		"description": "The description of the extension"
 	}
 }
