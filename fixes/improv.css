@@ -953,75 +953,33 @@ li.scaleteam-list-item .comment {
 	        white-space: pre-wrap !important;
 	}
 	
-	/* Pokemon Edition Styles */
-	.profile-title {
-	    color: #ffcb05 !important; /* Pokemon Yellow */
-	    text-shadow: 1px 1px #3b4cca; /* Pokemon Blue */
-	}
-	
-	              .pokemon-name {
-	
-	                  color: #ff1f1f;
-	
-	                  font-weight: bold;
-	
-	              }
-	
-	       
-	
-	                                   .pokemon-sprite {
-	
-	       
-	
-	                                       width: 42px;
-	
-	       
-	
-	                                       height: 42px;
-	
-	       
-	
-	                                       vertical-align: middle;
-	
-	       
-	
-	                                       image-rendering: pixelated;
-	
-	       
-	
-	                                       cursor: help; /* Indicates there is a tooltip */
-	
-	       
-	
-	                                   }
-	
-	       
-	
-	                            
-	
-	       
-	
-	                                   .pokemon-container {
-	
-	       
-	
-	                                       display: inline-block;
-	
-	       
-	
-	                                       vertical-align: middle;
-	
-	       
-	
-	                                       margin-left: 8px;
-	
-	       
-	
-	                                   }
-	
-	       
-	
-	              /* Safety: hide pokemon names in level bar or unwanted areas */	.user-level .pokemon-name, 
-	.cursus-list .pokemon-name {
-	    display: none !important;
-	}
+/* Pokemon Edition Styles */
+.profile-title {
+	color: #ffcb05 !important; /* Pokemon Yellow */
+	text-shadow: 1px 1px #3b4cca; /* Pokemon Blue */
+}
+
+.pokemon-name {
+	color: #ff1f1f;
+	font-weight: bold;
+}
+
+.pokemon-sprite {
+	width: 42px;
+	height: 42px;
+	vertical-align: middle;
+	image-rendering: pixelated;
+	cursor: help;
+}
+
+.pokemon-container {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 8px;
+}
+
+/* Safety: hide pokemon names in level bar or unwanted areas */
+.user-level .pokemon-name, 
+.cursus-list .pokemon-name {
+	display: none !important;
+}

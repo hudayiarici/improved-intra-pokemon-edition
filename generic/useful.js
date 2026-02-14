@@ -67,6 +67,10 @@ function getCampus() {
 // get the username from a profile
 function getProfileUserName() {
 	try {
+		const profileLogin = document.querySelector(".profile-name .login[data-login]");
+		if (profileLogin) {
+			return (profileLogin.getAttribute("data-login"));
+		}
 		return (document.querySelector(".login[data-login]").getAttribute("data-login"));
 	}
 	catch (err) {

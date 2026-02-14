@@ -29,38 +29,116 @@ function createMenuLink(userMenu, href, text, position) {
 }
 
 const pokemonList = ["Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise", "Caterpie", "Metapod", "Butterfree", "Weedle", "Kakuna", "Beedrill", "Pidgey", "Pidgeotto", "Pidgeot", "Rattata", "Raticate", "Spearow", "Fearow", "Ekans", "Arbok", "Pikachu", "Raichu", "Sandshrew", "Sandslash", "Nidoran♀", "Nidorina", "Nidoqueen", "Nidoran♂", "Nidorino", "Nidoking", "Clefairy", "Clefable", "Vulpix", "Ninetales", "Jigglypuff", "Wigglytuff", "Zubat", "Golbat", "Oddish", "Gloom", "Vileplume", "Paras", "Parasect", "Venonat", "Venomoth", "Diglett", "Dugtrio", "Meowth", "Persian", "Psyduck", "Golduck", "Mankey", "Primeape", "Growlithe", "Arcanine", "Poliwag", "Poliwhirl", "Poliwrath", "Abra", "Kadabra", "Alakazam", "Machop", "Machoke", "Machamp", "Bellsprout", "Weepinbell", "Victreebel", "Tentacool", "Tentacruel", "Geodude", "Graveler", "Golem", "Ponyta", "Rapidash", "Slowpoke", "Slowbro", "Magnemite", "Magneton", "Farfetch'd", "Doduo", "Dodrio", "Seel", "Dewgong", "Grimer", "Muk", "Shellder", "Cloyster", "Gastly", "Haunter", "Gengar", "Onix", "Drowzee", "Hypno", "Krabby", "Kingler", "Voltorb", "Electrode", "Exeggcute", "Exeggutor", "Cubone", "Marowak", "Hitmonlee", "Hitmonchan", "Lickitung", "Koffing", "Weezing", "Rhyhorn", "Rhydon", "Chansey", "Tangela", "Kangaskhan", "Horsea", "Seadra", "Goldeen", "Seaking", "Staryu", "Starmie", "Mr. Mime", "Scyther", "Jynx", "Electabuzz", "Magmar", "Pinsir", "Tauros", "Magikarp", "Gyarados", "Lapras", "Ditto", "Eevee", "Vaporeon", "Jolteon", "Flareon", "Porygon", "Omanyte", "Omastar", "Kabuto", "Kabutops", "Aerodactyl", "Snorlax", "Articuno", "Zapdos", "Moltres", "Dratini", "Dragonair", "Dragonite", "Mewtwo", "Mew"];
+const trainerList = [
+	{ name: "Ash (Red)", id: 1 },
+	{ name: "Gary (Blue)", id: 2 },
+	{ name: "Brock", id: 48 },
+	{ name: "Misty", id: 49 },
+	{ name: "Lt. Surge", id: 18 },
+	{ name: "Erika", id: 20 },
+	{ name: "Sabrina", id: 24 },
+	{ name: "Blaine", id: 26 },
+	{ name: "Giovanni", id: 28 },
+	{ name: "Professor Oak", id: 33 }
+];
 
-function getPokemonForUser(login, actualLevel = null) {
+function getPokeDataForUser(login, isTrainer = false) {
 	let hash = 0;
 	for (let i = 0; i < login.length; i++) {
 		hash = login.charCodeAt(i) + ((hash << 5) - hash);
 	}
-	const index = Math.abs(hash) % pokemonList.length;
-	const level = actualLevel || (Math.abs(hash) % 30) + 1;
-	return { name: pokemonList[index], level: level };
-}
-
-const levelCache = {};
-
-function getPokemonForUser(login) {
-	let hash = 0;
-	for (let i = 0; i < login.length; i++) {
-		hash = login.charCodeAt(i) + ((hash << 5) - hash);
+	if (isTrainer) {
+		const index = Math.abs(hash) % trainerList.length;
+		return { ...trainerList[index], type: "trainer" };
+	} else {
+		const index = Math.abs(hash) % pokemonList.length;
+		return { name: pokemonList[index], id: index + 1, type: "pokemon" };
 	}
-	const index = Math.abs(hash) % pokemonList.length;
-	return { name: pokemonList[index], id: index + 1 };
 }
 
-function applyPokemonNames() {
+// Supabase Configuration (Replace with your own keys)
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+// Shared cache for custom pokemon choices
+let customPokeCache = null;
+let isCacheLoading = false;
+
+async function fetchGlobalPokemon() {
 	try {
-		// 1. Broad titles replacement
-		const allTitles = document.querySelectorAll("h1, h2, h3, h4, h5, .profile-title, .title");
-		allTitles.forEach(el => {
+		const response = await fetch(`${SUPABASE_URL}/rest/v1/pokemon_mappings?select=username,pokemon_name`, {
+			method: 'GET',
+			headers: {
+				'apikey': SUPABASE_ANON_KEY,
+				'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+			}
+		});
+		const data = await response.json();
+		const mappings = {};
+		data.forEach(item => {
+			mappings[item.username.toLowerCase()] = item.pokemon_name;
+		});
+		return mappings;
+	} catch (err) {
+		iConsole.warn("Could not fetch global Pokemon from Supabase", err);
+		return null;
+	}
+}
+
+async function updateGlobalPokemon(username, pokemonName) {
+	try {
+		await fetch(`${SUPABASE_URL}/rest/v1/pokemon_mappings`, {
+			method: 'POST',
+			headers: {
+				'apikey': SUPABASE_ANON_KEY,
+				'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+				'Content-Type': 'application/json',
+				'Prefer': 'resolution=merge-duplicates'
+			},
+			body: JSON.stringify({
+				username: username.toLowerCase(),
+				pokemon_name: pokemonName,
+				updated_at: new Date().toISOString()
+			})
+		});
+		iConsole.log(`Updated global Pokemon for ${username}: ${pokemonName}`);
+	} catch (err) {
+		iConsole.error("Could not update global Pokemon", err);
+	}
+}
+
+async function applyPokemonNames() {
+	try {
+		// Pre-load custom pokemon from Supabase first, then fallback to local
+		if (customPokeCache === null) {
+			if (isCacheLoading) return;
+			isCacheLoading = true;
+			
+			// 1. Try Supabase
+			const globalData = await fetchGlobalPokemon();
+			if (globalData) {
+				customPokeCache = globalData;
+			} else {
+				// 2. Fallback to local storage
+				const localData = await improvedStorage.get("custom-pokemon");
+				customPokeCache = localData["custom-pokemon"] || {};
+			}
+			isCacheLoading = false;
+		}
+
+		// 1. Broad titles and empty states replacement
+		const allTextElems = document.querySelectorAll("h1, h2, h3, h4, h5, .profile-title, .title, p, span, div");
+		allTextElems.forEach(el => {
+			if (el.children.length > 0) return; // Only target elements with direct text to avoid breaking structure
 			const txt = el.textContent;
-			if (txt.includes("Patroning")) {
-				el.textContent = txt.replace("Patroning", "MY POKEMONS");
-			} else if (txt.includes("Patroned by")) {
-				el.textContent = txt.replace("Patroned by", "MY TRAINER");
+			if (txt.includes("Patroning") && (el.tagName.startsWith("H") || el.classList.contains("profile-title"))) {
+				el.textContent = txt.replace("Patroning", "Pokemons");
+			} else if (txt.includes("Patroned by") && (el.tagName.startsWith("H") || el.classList.contains("profile-title"))) {
+				el.textContent = txt.replace("Patroned by", "Trainer");
+			} else if (txt.toLowerCase().includes("not patroning anyone")) {
+				el.textContent = "Not training any Pokemon";
+			} else if (txt.toLowerCase().includes("no patron")) {
+				el.textContent = "No trainer";
 			}
 		});
 
@@ -69,30 +147,99 @@ function applyPokemonNames() {
 		targets.forEach(el => {
 			if (el.querySelector(".pokemon-container") || el.closest(".user-level")) return;
 
-			let login = "";
-			if (el.tagName === "A") {
-				const href = el.getAttribute("href");
-				const match = href.match(/\/users\/([a-z0-9\-_]+)$/i);
-				if (match) login = match[1];
-			} else {
-				login = el.textContent.trim().split(/\s+/)[0];
+			let login = el.getAttribute("data-login") || "";
+			if (!login) {
+				if (el.tagName === "A") {
+					const href = el.getAttribute("href");
+					const match = href.match(/\/users\/([a-z0-9\-_]+)$/i);
+					if (match) login = match[1];
+				} else {
+					login = el.textContent.trim().split(/\s+/)[0];
+				}
 			}
 
 			if (!login || login === "sign_in" || login.length < 3) return;
+			login = login.toLowerCase().trim();
 
-			const isMainProfile = window.location.pathname.includes("/users/" + login) || (el.classList.contains("login") && !el.closest(".patronage-item"));
-			const isPatronage = el.closest(".patronage-item") || el.closest(".user-primary") || el.closest(".user-infos");
+			const isOwnDashboard = window.location.hostname === "profile.intra.42.fr" && window.location.pathname === "/";
+			const isMainProfile = (window.location.pathname.includes("/users/" + login) || isOwnDashboard) && !el.closest(".patronage-item");
+			
+			// Manual Mappings Overrides
+			const manualMappings = {
+				"muhamoz": { name: "Charmander", id: 4 },
+				"asobolev": { name: "Pikachu", id: 25 },
+				"acelik": { name: "Squirtle", id: 7 },
+				"beeligul": { name: "Mewtwo", id: 150 },
+				"harici": { name: "Magmar", id: 126 }
+			};
 
-			if (isMainProfile || isPatronage) {
-				const pokeData = getPokemonForUser(login);
+			// Absolute Trainer Detection: Scan between titles
+			let isTrainerSection = false;
+			const allTitles = document.querySelectorAll("h4, .profile-title");
+			for (const title of allTitles) {
+				if (title.textContent.includes("Trainer") || title.textContent.includes("Patroned by")) {
+					// Check all following siblings until the next heading
+					let sibling = title.nextElementSibling;
+					while (sibling && sibling.tagName !== "H4" && !sibling.classList.contains("profile-title")) {
+						if (sibling.contains(el)) {
+							isTrainerSection = true;
+							break;
+						}
+						sibling = sibling.nextElementSibling;
+					}
+				}
+				if (isTrainerSection) break;
+			}
+
+			const isPatronage = el.closest(".patronage-item") || el.closest(".user-infos") || isMainProfile || isTrainerSection;
+
+			if (isPatronage) {
+				let pokeData;
+				if (customPokeCache[login]) {
+					const pokeName = customPokeCache[login];
+					const pokeIndex = pokemonList.indexOf(pokeName);
+					pokeData = { name: pokeName, id: pokeIndex + 1 };
+				} else if (manualMappings[login]) {
+					pokeData = { ...manualMappings[login] };
+				} else {
+					pokeData = getPokeDataForUser(login, isTrainerSection);
+				}
 				const container = document.createElement("span");
 				container.className = "pokemon-container";
 				
 				const img = document.createElement("img");
 				img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeData.id}.png`;
 				img.className = "pokemon-sprite";
-				// Tooltip effect: show name on hover
-				img.title = isMainProfile && !isPatronage ? `${pokeData.name} (Your Pokemon)` : pokeData.name;
+				
+				let tooltipText = pokeData.name;
+				// Only allow changing IF it is the user's OWN profile/dashboard
+				// and the login matches the logged in user
+				const loggedInUser = (document.querySelector(".main-navbar [data-login]")?.getAttribute("data-login") || "").toLowerCase();
+				if (isMainProfile && !isTrainerSection && loggedInUser === login) {
+					tooltipText += " (Click to change)";
+					img.style.cursor = "pointer";
+					img.addEventListener("click", async function(e) {
+						e.preventDefault();
+						const newPoke = prompt("Choose your Pokemon (e.g. Pikachu, Mewtwo, Charizard):", pokeData.name);
+						if (newPoke && pokemonList.includes(newPoke.charAt(0).toUpperCase() + newPoke.slice(1).toLowerCase())) {
+							const formattedPoke = newPoke.charAt(0).toUpperCase() + newPoke.slice(1).toLowerCase();
+							const targetLogin = login; // captures the current login
+							customPokeCache[targetLogin] = formattedPoke;
+							
+							// Sync locally
+							await improvedStorage.set({ "custom-pokemon": customPokeCache });
+							
+							// Sync globally (Supabase)
+							await updateGlobalPokemon(targetLogin, formattedPoke);
+							
+							// Trigger a refresh of the icons on the page
+							applyPokemonNames();
+						} else if (newPoke) {
+							alert("Pokemon not found in Gen 1 list!");
+						}
+					});
+				}
+				img.title = tooltipText;
 				
 				container.appendChild(img);
 				el.appendChild(container);
