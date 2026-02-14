@@ -36,6 +36,8 @@
 		"https://iintra.freekb.es/*",
 		"https://darkintra.freekb.es/*",
 		"https://raw.githubusercontent.com/*",
+		"https://pokeapi.co/*",
+		"https://zaxlzvhmflmihyzbvxei.supabase.co/*",
 		"storage"
 	],
 	"web_accessible_resources": [
