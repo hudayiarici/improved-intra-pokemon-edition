@@ -281,12 +281,14 @@ async function applyPokemonNames(force = false) {
 								// Sync locally
 								await improvedStorage.set({ "custom-pokemon": customPokeCache });
 								
-								// Sync globally (Supabase)
-								await updateGlobalPokemon(login, found.name);
-								
-								// Trigger a refresh of the icons on the page (forced)
-								applyPokemonNames(true);
-							} else {
+							// Sync globally (Supabase)
+							await updateGlobalPokemon(login, found.name);
+							
+							// Just remove all existing containers. 
+							// The MutationObserver will automatically trigger applyPokemonNames() 
+							// and re-add them with the new data from customPokeCache.
+							document.querySelectorAll(".pokemon-container").forEach(c => c.remove());
+						} else {
 								alert("Pokemon not found! Make sure you spelled it correctly (e.g. Bulbasaur, Rayquaza, Zacian).");
 							}
 						}
