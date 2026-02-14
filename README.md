@@ -26,12 +26,24 @@ This is a specialized fork of the amazing [Improved Intra](https://github.com/Fr
 - **Enhanced Stats:** View outstanding flags and project details at a glance.
 - **UI Cleanups:** Optimized layouts and removed unnecessary buttons.
 
-## 📦 Installation
-Since this is a custom edition, you can install it manually:
-1. Clone this repository: `git clone https://github.com/hudayiarici/improved-intra-pokemon-edition.git`
-2. Open Chrome/Brave/Edge and go to `chrome://extensions/`.
-3. Enable **Developer Mode**.
-4. Click **Load unpacked** and select the folder where you cloned the repo.
+## 📦 Installation & Download
+
+### Direct Download
+- [**Download for Chrome / Chromium Based Browsers (chromium.zip)**](https://github.com/hudayiarici/improved-intra-pokemon-edition/raw/main/chromium.zip)
+- [**Download for Firefox (firefox.zip)**](https://github.com/hudayiarici/improved-intra-pokemon-edition/raw/main/firefox.zip)
+
+### How to Install
+#### For Chrome / Brave / Edge:
+1. Download `chromium.zip` and extract it to a folder.
+2. Open `chrome://extensions/` in your browser.
+3. Enable **Developer Mode** (top right).
+4. Click **Load unpacked** and select the folder where you extracted the files.
+
+#### For Firefox:
+1. Download `firefox.zip`.
+2. Open `about:debugging#/runtime/this-firefox` in your browser.
+3. Click **Load Temporary Add-on...** and select the `firefox.zip` file.
+*(Note: Temporary add-ons in Firefox are removed when the browser restarts.)*
 
 ## ⚙️ Configuration (For Owners)
 If you are hosting your own version, make sure to set your Supabase keys in `fixes/general.js`:
