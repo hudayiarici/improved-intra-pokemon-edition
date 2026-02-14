@@ -5,3 +5,6 @@
 temp.js
 temp/*
 *.log
+node_modules/
+firefox-build/
+web-ext-artifacts/
