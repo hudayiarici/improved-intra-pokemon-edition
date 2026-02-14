@@ -1,7 +1,7 @@
 # Improved Intra: Pokemon Edition 🐲
 
-[![Chrome Web Store](https://img.shields.io/badge/Chrome-Download-green?style=for-the-badge&logo=google-chrome&logoColor=white)](https://github.com/hudayiarici/improved-intra-pokemon-edition/releases/download/v4.4.2/chromium.zip)
-[![Firefox Add-ons](https://img.shields.io/badge/Firefox-Download-orange?style=for-the-badge&logo=firefox-browser&logoColor=white)](https://github.com/hudayiarici/improved-intra-pokemon-edition/releases/download/v4.4.2/improved-intra-pokemon-v4.4.2-firefox-signed.xpi)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome-Download-green?style=for-the-badge&logo=google-chrome&logoColor=white)](https://github.com/hudayiarici/improved-intra-pokemon-edition/releases/download/v4.4.3/chromium.zip)
+[![Firefox Add-ons](https://img.shields.io/badge/Firefox-Download-orange?style=for-the-badge&logo=firefox-browser&logoColor=white)](https://github.com/hudayiarici/improved-intra-pokemon-edition/releases/download/v4.4.3/improved-intra-pokemon-v4.4.3-firefox-signed.xpi)
 
 This is a specialized fork of the "Improved Intra" extension, transformed into the **Pokemon Edition**. Every student in the 42 Network now has a Pokemon partner, synced globally across all users!
 
@@ -16,13 +16,13 @@ This is a specialized fork of the "Improved Intra" extension, transformed into t
 ## 📦 Installation
 
 ### Google Chrome / Brave / Edge
-1. Download [chromium.zip](https://github.com/hudayiarici/improved-intra-pokemon-edition/releases/download/v4.4.2/chromium.zip).
+1. Download [chromium.zip](https://github.com/hudayiarici/improved-intra-pokemon-edition/releases/download/v4.4.3/chromium.zip).
 2. Extract the ZIP file.
 3. Go to `chrome://extensions/` and enable **Developer Mode**.
 4. Click **Load unpacked** and select the extracted folder.
 
 ### Mozilla Firefox
-1. Download [improved-intra-pokemon-v4.4.2-firefox-signed.xpi](https://github.com/hudayiarici/improved-intra-pokemon-edition/releases/download/v4.4.2/improved-intra-pokemon-v4.4.2-firefox-signed.xpi).
+1. Download [improved-intra-pokemon-v4.4.3-firefox-signed.xpi](https://github.com/hudayiarici/improved-intra-pokemon-edition/releases/download/v4.4.3/improved-intra-pokemon-v4.4.3-firefox-signed.xpi).
 2. Drag and drop the `.xpi` file into your Firefox window.
 3. Click **Add** when prompted. It will stay installed permanently!
 
