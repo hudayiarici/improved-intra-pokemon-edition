@@ -189,18 +189,24 @@ async function applyPokemonNames() {
 		});
 
 		// 2. Assign Pokemon (Links + Login spans)
-		const targets = document.querySelectorAll("a[href*='/users/'], .login");
+		const targets = document.querySelectorAll("a[href*='/users/'], .login, [data-search-item], .tt-suggestion");
 		targets.forEach(el => {
-			if (el.querySelector(".pokemon-container") || el.closest(".user-level")) return;
+			if (el.querySelector(".pokemon-container")) return;
 
-			let login = el.getAttribute("data-login") || "";
+			let login = el.getAttribute("data-login") || el.getAttribute("data-search-item") || "";
 			if (!login) {
 				if (el.tagName === "A") {
 					const href = el.getAttribute("href");
 					const match = href.match(/\/users\/([a-z0-9\-_]+)$/i);
 					if (match) login = match[1];
 				} else {
-					login = el.textContent.trim().split(/\s+/)[0];
+					// Specific fix for search bar suggestions which might have login in specific child
+					const loginSub = el.querySelector(".login, .login-name, em");
+					if (loginSub) {
+						login = loginSub.textContent.trim();
+					} else {
+						login = el.textContent.trim().split(/\s+/)[0];
+					}
 				}
 			}
 
@@ -228,7 +234,9 @@ async function applyPokemonNames() {
 				if (isTrainerSection) break;
 			}
 
-			const isPatronage = el.closest(".patronage-item") || el.closest(".user-infos") || isMainProfile || isTrainerSection;
+			// Broad check for inclusion: profiles, dash, search bar results, search page, etc.
+			const isSearch = el.closest(".search-result") || el.closest(".search-item") || el.closest(".tt-suggestion") || el.hasAttribute("data-search-item");
+			const isPatronage = el.closest(".patronage-item") || el.closest(".user-infos") || isMainProfile || isTrainerSection || isSearch;
 
 			if (isPatronage) {
 				let pokeData;

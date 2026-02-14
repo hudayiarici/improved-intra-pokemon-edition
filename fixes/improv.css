@@ -965,8 +965,8 @@ li.scaleteam-list-item .comment {
 }
 
 .pokemon-sprite {
-	width: 42px;
-	height: 42px;
+	width: 84px;
+	height: 84px;
 	vertical-align: middle;
 	image-rendering: pixelated;
 	cursor: help;
