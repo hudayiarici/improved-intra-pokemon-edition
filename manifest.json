@@ -18,7 +18,8 @@
 	"incognito": "spanning",
 	"browser_specific_settings": {
 		"gecko": {
-			"update_url": "https://raw.githubusercontent.com/FreekBes/improved_intra/main/updates.json",
+			"id": "improved-intra-pokemon@hudayiarici",
+			"update_url": "https://raw.githubusercontent.com/hudayiarici/improved-intra-pokemon-edition/main/updates.json",
 			"strict_min_version": "102.0"
 		}
 	},
@@ -35,8 +36,7 @@
 		"https://iintra.freekb.es/*",
 		"https://darkintra.freekb.es/*",
 		"https://raw.githubusercontent.com/*",
-		"storage",
-		"scripting"
+		"storage"
 	],
 	"web_accessible_resources": [
 		"options/options.html",
