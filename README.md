@@ -1,59 +1,37 @@
-<h1 align="center"><img src="https://raw.githubusercontent.com/hudayiarici/improved-intra-pokemon-edition/main/promo/logo-wide.png" height="192" alt="Improved Intra: Pokemon Edition"></h1>
+# Improved Intra: Pokemon Edition 🐲
 
-<p align="center">
-  <b>The ultimate Pokemon trainer extension for 42's Intranet! Catch 'em all while coding.</b>
-</p>
+[![Chrome Web Store](https://img.shields.io/badge/Chrome-Download-green?style=for-the-badge&logo=google-chrome&logoColor=white)](https://github.com/hudayiarici/improved-intra-pokemon-edition/releases/download/v4.4.2/chromium.zip)
+[![Firefox Add-ons](https://img.shields.io/badge/Firefox-Download-orange?style=for-the-badge&logo=firefox-browser&logoColor=white)](https://github.com/hudayiarici/improved-intra-pokemon-edition/releases/download/v4.4.2/improved-intra-pokemon-v4.4.2-signed.xpi)
 
----
+This is a specialized fork of the "Improved Intra" extension, transformed into the **Pokemon Edition**. Every student in the 42 Network now has a Pokemon partner, synced globally across all users!
 
-## 🚀 Pokemon Edition Features
-This is a specialized fork of the amazing [Improved Intra](https://github.com/FreekBes/improved_intra) project, transformed into a full Pokemon experience.
+## 🚀 Key Features
 
-- **Gotta Catch 'Em All:** Every user on Intra is automatically assigned a Pokemon based on their login.
-- **Dynamic Sprites:** Support for all **1000+ Pokemon** from all generations (powered by [PokeAPI](https://pokeapi.co/)).
-- **Choose Your Partner:** Click on your own Pokemon icon on your profile or dashboard to change it to any Pokemon you want!
-- **Global Synchronization:** All Pokemon choices are synced across the world using [Supabase](https://supabase.com/). When you change your Pokemon, everyone else using the extension will see your new partner!
-- **Pokemon Terminology:** 
-  - "Patroning" → **Pokemons**
-  - "Patroned by" → **Trainer**
-  - "Not patroning anyone" → **Not training any Pokemon**
-  - "No patron" → **No trainer**
-- **Pixel-Art Aesthetic:** High-quality pixel-art sprites integrated directly into the Intra UI.
+- **Global Pokemon Partners:** Every login is automatically assigned a Pokemon partner.
+- **Supabase Synchronization:** Your Pokemon choice is saved globally. When you change your partner, everyone else using the extension sees it!
+- **Gen 1-10 Support:** Over 1000+ Pokemon available via PokeAPI.
+- **Self-Service Selection:** Click on your own Pokemon sprite on your Profile or Dashboard to choose a new partner.
+- **Firefox Signed:** Our Firefox version is officially signed, meaning it stays installed permanently.
 
-## 🛠 Features from Original Improved Intra
-- **Dark Theme:** Rest your eyes during those long night clusters.
-- **Customizable Profiles:** Add custom banners and GitHub links.
-- **Enhanced Stats:** View outstanding flags and project details at a glance.
-- **UI Cleanups:** Optimized layouts and removed unnecessary buttons.
+## 📦 Installation
 
-## 📦 Installation & Download
+### Google Chrome / Brave / Edge
+1. Download [chromium.zip](https://github.com/hudayiarici/improved-intra-pokemon-edition/releases/download/v4.4.2/chromium.zip).
+2. Extract the ZIP file.
+3. Go to `chrome://extensions/` and enable **Developer Mode**.
+4. Click **Load unpacked** and select the extracted folder.
 
-### Direct Download
-- [**Download for Chrome / Chromium Based Browsers (chromium.zip)**](https://github.com/hudayiarici/improved-intra-pokemon-edition/raw/main/chromium.zip)
-- [**Download for Firefox (firefox.zip)**](https://github.com/hudayiarici/improved-intra-pokemon-edition/raw/main/firefox.zip)
+### Mozilla Firefox
+1. Download [improved-intra-pokemon-v4.4.2-signed.xpi](https://github.com/hudayiarici/improved-intra-pokemon-edition/releases/download/v4.4.2/improved-intra-pokemon-v4.4.2-signed.xpi).
+2. Drag and drop the `.xpi` file into your Firefox window.
+3. Click **Add** when prompted. It will stay installed permanently!
 
-### How to Install
-#### For Chrome / Brave / Edge:
-1. Download `chromium.zip` and extract it to a folder.
-2. Open `chrome://extensions/` in your browser.
-3. Enable **Developer Mode** (top right).
-4. Click **Load unpacked** and select the folder where you extracted the files.
-
-#### For Firefox:
-1. Download `firefox.zip`.
-2. Open `about:debugging#/runtime/this-firefox` in your browser.
-3. Click **Load Temporary Add-on...** and select the `firefox.zip` file.
-*(Note: Temporary add-ons in Firefox are removed when the browser restarts.)*
-
-## ⚙️ Configuration (For Owners)
-If you are hosting your own version, make sure to set your Supabase keys in `fixes/general.js`:
-```javascript
-const SUPABASE_URL = 'https://your-project.supabase.co';
-const SUPABASE_ANON_KEY = 'your-anon-key';
-```
-
-## 🤝 Contributing
-Feel free to fork and add more Pokemon features! Bug reports and feature requests are welcome.
+## 🛠 How to change your Pokemon?
+1. Go to your **Intra Profile** or **Dashboard**.
+2. Find the Pokemon sprite next to your name.
+3. **Click it!**
+4. Type the name of your new partner (e.g., `Lucario`, `Gengar`, `Rayquaza`).
+5. Refresh the page to see your new partner!
 
 ---
-*Disclaimer: This project is a community-made fork and is not affiliated with 42 or Nintendo.*
+*Maintained by [harici](https://github.com/hudayiarici) | Originally based on Improved Intra by fbes.*
