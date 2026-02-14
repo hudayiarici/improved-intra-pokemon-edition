@@ -1,0 +1,138 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   dark.css                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fbes <fbes@student.codam.nl>                 +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2021/11/29 17:39:48 by fbes          #+#    #+#                 */
+/*   Updated: 2022/08/09 12:08:49 by fbes          ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * This CSS file contains all variable colors for dark theme.
+ * Use the variables in any color scheme file. Unused variables will use either
+ * dark or light theme's CSS as its base theme, depending on the settings.
+ */
+
+:root {
+	/* main colors */
+	--pure-white: #000000;
+	--pure-black: #ffffff;
+	--theme-color: #00babc;
+	--theme-color-dark: #02807c;
+	--theme-color-light: #00ecef;
+	--success-color: #5cb85c;
+	--warning-color: #df9539;
+	--fail-color: #d8636f;
+	--danger-color: #e26060;
+	--default-color: #373c48;
+
+	/* background colors */
+	--body-background-color: #12141a;
+	--container-background-color: #1d2028;
+	--list-odd-background-color: #1a1e28;
+	--list-hover-background-color: #272b34;
+	--choice-background-color: #7a8192;
+	--search-user-no-image-background-color: #292D39;
+	--achievement-progress-color: #4c4c58;
+	--input-background-color: #373c48;
+	--input-background-color-disabled: #242830;
+	--input-background-color-transparent: rgba(30, 30, 30, 0.5);
+	--mark-background-color: #3c3a31;
+	--article-language-background-color: #1A252F;
+	--nav-active-color: #373c48;
+	--nav-hover-color: #474b54;
+
+	/* border colors */
+	--general-border-color: #2d313c;
+	--general-border-colorless: rgba(0, 0, 0, 0.3);
+	--choice-border-color: #878fa1;
+	--search-user-video-border-color: #575c68;
+	--input-border-color: #474b54;
+	--input-border-color-light: #8a8a8a;
+	--light-border-color: #b3b9ce;
+
+	/* text colors */
+	--text-color: #f2f2f2;
+	--secondary-text-color: #a8aeb9;
+	--tertiary-text-color: #878c95;
+	--quaternary-text-color: #6e737c;
+	--input-text-color: #c7c7c7;
+	--note-title-text-color: rgba(223, 223, 223, 0.2);
+
+	/* box shadows */
+	--choice-box-shadow: 0 0 2px black inset, 0 1px 0 rgb(0 0 0 / 5%);
+	--search-user-video-box-shadow: 1px 1px 5px rgb(255 255 255 / 10%);
+
+	/* navbar styling */
+	--top-navbar-background-color: #1e212a;
+	--left-navbar-background-color: #292D39;
+	--left-navbar-icon-color: #666e80;
+	--left-navbar-icon-color-hover: #ffffff;
+	--left-navbar-icon-color-active: #ffffff;
+	--left-navbar-icon-color-admin: #845459;
+	--left-navbar-icon-color-admin-hover: #d8636f;
+	--left-navbar-icon-color-admin-active: #d8636f;
+
+	/* button styling */
+	--success-button-background: rgba(92, 184, 92, 0.2);
+	--success-button-background-active: rgba(92, 184, 92, 0.3);
+	--success-button-border: rgba(92, 184, 92, 0);
+	--danger-button-background: rgba(216, 99, 111, 0.2);
+	--danger-button-background-active: rgba(216, 99, 111, 0.3);
+	--danger-button-border: rgba(216, 99, 111, 0);
+
+	/* highcharts styling */
+	--highcharts-axis-label-color: #adadad;
+	--highcharts-axis-path-color: #434d54;
+	--highcharts-grid-path-color: #373c48;
+	--highcharts-data-label-color: #f2f2f2;
+	--highcharts-tooltip-background-color: rgba(25, 26, 28, 0.85);
+	--highcharts-tooltip-text-color: #adadad;
+
+	/* logtime chart styling (text colors) */
+	--logtime-chart-24h-color: #00ecef;
+	--logtime-chart-00h-color: #252932;
+
+	/* historics page styling */
+	--historics-rating-background-success: rgba(0, 186, 188, 0.15);
+	--historics-rating-background-fail: rgba(255, 8, 78, 0.15);
+	--scaleteam-rating-text-color-normal: #373c48;
+	--scaleteam-rating-background-fail: #523d3f;
+
+	/* events styling (slots) */
+	--event-default-text-color: #cceced;
+	--event-unthemed-border-color: #474b54;
+	--event-open-background: #02807c;
+	--event-closed-background: #040810;
+	--event-reserved-background: #bc1301;
+	--event-reserved-border-color: #781919;
+	--event-reserved-text-color: #f8d2d2;
+
+	/* api and auth page styling */
+	--api-logo-filter: brightness(1.5) saturate(1.55);
+	--api-user-name-text-color: #9a9a9a;
+	--api-theme-color: #6fabe6;
+	--api-theme-border-color: #598dc2;
+	--api-theme-color-light: #81b4e7;
+	--api-button-background-color: #34495e;
+	--api-button-background-color-hover: #5dade2;
+	--api-button-background-color-focus: #2c81ba;
+	--api-documentation-warning-background: #3a3a3a;
+	--api-documentation-list-background: #3a3a3a;
+	--api-documentation-list-odd-background: #2a2a2a;
+	--webhooks-docu-theme-color: #319dff;
+	--webhooks-docu-theme-color-xlight: #272d33;
+
+	/* scrollbar styling */
+	--scrollbar-background-color: #2d313c;
+	--scrollbar-thumb-color: #474b54;
+	--scrollbar-thumb-color-hover: #555a66;
+	--scrollbar-thumb-color-active: #5f646e;
+
+	/* override event colors */
+	--event-meet: var(--theme-color);
+	--event-dark-meet: var(--theme-color-dark);
+}

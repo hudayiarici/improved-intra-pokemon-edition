@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Improved Intra 42</title>
+	<link rel="stylesheet" href="../internal.css" />
+	<link rel="stylesheet" href="popup.css" />
+	<script src="/generic/useful.js"></script>
+	<script src="/generic/console.js"></script>
+	<script src="/generic/lib/storage.js"></script>
+	<script src="/generic/lib/network.js"></script>
+	<script src="/generic/init.js"></script>
+	<script src="/features/themes/loader.js"></script>
+</head>
+<body>
+	<div id="loading-menu">
+		<p>Loading...</p><br>
+		<img class="menu-logo" src="/promo/logo-wide.png" alt="Improved Intra 42" />
+	</div>
+	<div id="main-menu" style="display: none;">
+		<p style="font-size: small;">Hi there<span id="intra-logged-in-username">!</span></p>
+		<ul class="menu-list">
+			<li id="open-intra"><button><span>Open Intra</span></button></li>
+			<li id="manage-slots"><button><span>Manage slots</span></button></li>
+			<li id="list-projects"><button><span>My projects</span></button></li>
+			<li id="view-profile"><button><span>My profile</span></button></li>
+			<li id="ext-settings"><button><span>Extension settings</span></button></li>
+			<li id="ext-sync"><button><span>Force sync settings</span></button></li>
+			<!--<li id="intra-logout"><button><span>Log out</span></button></li>-->
+		</ul>
+		<img class="menu-logo" src="/promo/logo-wide.png" alt="Improved Intra 42" />
+	</div>
+	<div id="session-menu" style="display: none;">
+		<p>Your Improved Intra session expired.</p>
+		<ul class="menu-list">
+			<li id="iintra-auth"><button><span>Authenticate with 42</span></button></li>
+		</ul>
+		<img class="menu-logo" src="/promo/logo-wide.png" alt="Improved Intra 42" />
+	</div>
+	<div id="login-menu" style="display: none;">
+		<p>Not logged in on Intra</p>
+		<ul class="menu-list">
+			<li id="intra-login"><button><span>Log in</span></button></li>
+		</ul>
+		<img class="menu-logo" src="/promo/logo-wide.png" alt="Improved Intra 42" />
+	</div>
+	<script src="popup.js"></script>
+</body>
+</html>
