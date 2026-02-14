@@ -34,6 +34,7 @@
 		"*://*.intra.42.fr/*",
 		"https://iintra.freekb.es/*",
 		"https://darkintra.freekb.es/*",
+		"https://raw.githubusercontent.com/*",
 		"storage",
 		"scripting"
 	],

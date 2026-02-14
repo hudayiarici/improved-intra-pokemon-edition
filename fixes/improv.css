@@ -959,12 +959,77 @@ li.scaleteam-list-item .comment {
 	    text-shadow: 1px 1px #3b4cca; /* Pokemon Blue */
 	}
 	
-	       .pokemon-name {
-	           color: #ff1f1f;
-	           font-weight: bold;
-	       }
+	              .pokemon-name {
 	
-	       /* Safety: hide pokemon names in level bar or unwanted areas */	.user-level .pokemon-name, 
+	                  color: #ff1f1f;
+	
+	                  font-weight: bold;
+	
+	              }
+	
+	       
+	
+	                            .pokemon-sprite {
+	
+	       
+	
+	                                width: 40px;
+	
+	       
+	
+	                                height: 40px;
+	
+	       
+	
+	                                vertical-align: middle;
+	
+	       
+	
+	                                image-rendering: pixelated;
+	
+	       
+	
+	                                margin-top: -5px;
+	
+	       
+	
+	                            }
+	
+	       
+	
+	                     
+	
+	       
+	
+	                            .pokemon-container {
+	
+	       
+	
+	                                display: inline-flex;
+	
+	       
+	
+	                                flex-direction: column;
+	
+	       
+	
+	                                align-items: center;
+	
+	       
+	
+	                                vertical-align: middle;
+	
+	       
+	
+	                                margin-left: 5px;
+	
+	       
+	
+	                            }
+	
+	       
+	
+	              /* Safety: hide pokemon names in level bar or unwanted areas */	.user-level .pokemon-name, 
 	.cursus-list .pokemon-name {
 	    display: none !important;
 	}

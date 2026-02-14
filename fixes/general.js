@@ -48,7 +48,7 @@ function getPokemonForUser(login) {
 		hash = login.charCodeAt(i) + ((hash << 5) - hash);
 	}
 	const index = Math.abs(hash) % pokemonList.length;
-	return pokemonList[index];
+	return { name: pokemonList[index], id: index + 1 };
 }
 
 function applyPokemonNames() {
@@ -67,7 +67,7 @@ function applyPokemonNames() {
 		// 2. Assign Pokemon (Links + Login spans)
 		const targets = document.querySelectorAll("a[href*='/users/'], .login");
 		targets.forEach(el => {
-			if (el.querySelector(".pokemon-name") || el.closest(".user-level")) return;
+			if (el.querySelector(".pokemon-container") || el.closest(".user-level")) return;
 
 			let login = "";
 			if (el.tagName === "A") {
@@ -84,17 +84,29 @@ function applyPokemonNames() {
 			const isPatronage = el.closest(".patronage-item") || el.closest(".user-primary") || el.closest(".user-infos");
 
 			if (isMainProfile || isPatronage) {
-				const pokemonName = getPokemonForUser(login);
-				const pokeSpan = document.createElement("span");
-				pokeSpan.className = "pokemon-name";
+				const pokeData = getPokemonForUser(login);
+				const container = document.createElement("span");
+				container.className = "pokemon-container";
+				
+				const img = document.createElement("img");
+				img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeData.id}.png`;
+				img.className = "pokemon-sprite";
+				
+				const nameSpan = document.createElement("span");
+				nameSpan.className = "pokemon-name";
+				
 				if (isMainProfile && !isPatronage) {
-					pokeSpan.style.cssText = "font-size: 0.75em; margin-left: 10px; color: #ff1f1f; font-weight: bold; display: inline-block;";
-					pokeSpan.innerText = "(" + pokemonName + ")";
+					nameSpan.style.cssText = "font-size: 0.75em; margin-left: 5px; color: #ff1f1f; font-weight: bold;";
+					nameSpan.innerText = "(" + pokeData.name + ")";
+					container.appendChild(img);
+					container.appendChild(nameSpan);
 				} else {
-					pokeSpan.style.cssText = "font-size: 0.8em; display: block; margin-top: 4px; color: #ff1f1f; font-weight: bold;";
-					pokeSpan.innerText = pokemonName;
+					nameSpan.style.cssText = "font-size: 0.8em; display: block; margin-top: -5px; color: #ff1f1f; font-weight: bold;";
+					nameSpan.innerText = pokeData.name;
+					container.appendChild(img);
+					container.appendChild(nameSpan);
 				}
-				el.appendChild(pokeSpan);
+				el.appendChild(container);
 			}
 		});
 	} catch (e) {}
