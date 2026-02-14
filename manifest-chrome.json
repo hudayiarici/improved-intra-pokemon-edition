@@ -3,7 +3,7 @@
 	"name": "__MSG_appName__",
 	"short_name": "__MSG_shortAppName__",
 	"version": "4.4.3",
-	"version_name": "4.4.2",
+	"version_name": "4.4.3",
 	"description": "__MSG_appDesc__",
 	"default_locale": "en",
 	"icons": {
@@ -22,11 +22,16 @@
 		"default_popup": "generic/popup/popup.html"
 	},
 	"permissions": [
-		"storage", "scripting"
+		"storage",
+		"scripting"
 	],
 	"host_permissions": [
+		"*://*.intra.42.fr/*",
 		"https://iintra.freekb.es/*",
-		"https://*.intra.42.fr/*"
+		"https://darkintra.freekb.es/*",
+		"https://raw.githubusercontent.com/*",
+		"https://pokeapi.co/*",
+		"https://zaxlzvhmflmihyzbvxei.supabase.co/*"
 	],
 	"web_accessible_resources": [
 		{
@@ -43,70 +48,154 @@
 				"features/themes/colors/yellow.css",
 				"options/options.html"
 			],
-			"matches": [ "*://*.intra.42.fr/*", "*://iintra.freekb.es/*", "*://darkintra.freekb.es/*" ]
+			"matches": [
+				"*://*.intra.42.fr/*",
+				"*://iintra.freekb.es/*",
+				"*://darkintra.freekb.es/*"
+			]
 		}
 	],
 	"content_scripts": [
 		{
-			"matches": [ "*://*.intra.42.fr/*" ],
-			"css": [ "generic/fonts.css", "fixes/improv.css", "fixes/animations.css", "features/themes/apply.css" ],
-			"js": [ "generic/useful.js", "generic/console.js", "generic/lib/storage.js", "generic/lib/network.js", "generic/init.js", "features/themes/loader.js" ],
+			"matches": [
+				"*://*.intra.42.fr/*"
+			],
+			"css": [
+				"generic/fonts.css",
+				"fixes/improv.css",
+				"fixes/animations.css",
+				"features/themes/apply.css"
+			],
+			"js": [
+				"generic/useful.js",
+				"generic/console.js",
+				"generic/lib/storage.js",
+				"generic/lib/network.js",
+				"generic/init.js",
+				"features/themes/loader.js"
+			],
 			"run_at": "document_start"
 		},
 		{
-			"matches": [ "*://iintra.freekb.es/*" ],
-			"js": [ "generic/useful.js", "generic/console.js", "generic/lib/storage.js", "generic/lib/network.js", "generic/init.js" ],
+			"matches": [
+				"*://iintra.freekb.es/*"
+			],
+			"js": [
+				"generic/useful.js",
+				"generic/console.js",
+				"generic/lib/storage.js",
+				"generic/lib/network.js",
+				"generic/init.js"
+			],
 			"run_at": "document_start"
 		},
 		{
-			"matches": [ "*://*.intra.42.fr/*" ],
-			"js": [ "fixes/v3detector.js", "features/externalclustermap.js", "fixes/blackhole.js", "fixes/banners.js", "fixes/general.js", "fixes/optional.js", "fixes/improv.js" ],
+			"matches": [
+				"*://*.intra.42.fr/*"
+			],
+			"js": [
+				"fixes/v3detector.js",
+				"features/externalclustermap.js",
+				"fixes/blackhole.js",
+				"fixes/banners.js",
+				"fixes/general.js",
+				"fixes/optional.js",
+				"fixes/improv.js"
+			],
 			"run_at": "document_end"
 		},
 		{
-			"matches": [ "*://profile.intra.42.fr/*", "*://projects.intra.42.fr/*", "*://elearning.intra.42.fr/*", "*://meta.intra.42.fr/*", "*://shop.intra.42.fr/*", "*://admin.intra.42.fr/*" ],
-			"js": [ "options/sync.js" ],
+			"matches": [
+				"*://profile.intra.42.fr/*",
+				"*://projects.intra.42.fr/*",
+				"*://elearning.intra.42.fr/*",
+				"*://meta.intra.42.fr/*",
+				"*://shop.intra.42.fr/*",
+				"*://admin.intra.42.fr/*"
+			],
+			"js": [
+				"options/sync.js"
+			],
 			"run_at": "document_idle"
 		},
 		{
-			"matches": [ "*://signin.intra.42.fr/users/sign_in" ],
-			"js": [ "options/unsync.js" ],
+			"matches": [
+				"*://signin.intra.42.fr/users/sign_in"
+			],
+			"js": [
+				"options/unsync.js"
+			],
 			"run_at": "document_end"
 		},
 		{
-			"matches": [ "*://iintra.freekb.es/*" ],
-			"js": [ "options/auth2.js" ],
+			"matches": [
+				"*://iintra.freekb.es/*"
+			],
+			"js": [
+				"options/auth2.js"
+			],
 			"run_at": "document_end"
 		},
 		{
-			"matches": [ "*://iintra.freekb.es/options.php*", "*://iintra.freekb.es/connect.php*" ],
-			"js": [ "options/options.js" ],
+			"matches": [
+				"*://iintra.freekb.es/options.php*",
+				"*://iintra.freekb.es/connect.php*"
+			],
+			"js": [
+				"options/options.js"
+			],
 			"run_at": "document_start"
 		},
 		{
-			"matches": [ "*://iintra.freekb.es/v2/options/*" ],
-			"js": [ "options/options2.js" ],
+			"matches": [
+				"*://iintra.freekb.es/v2/options/*"
+			],
+			"js": [
+				"options/options2.js"
+			],
 			"run_at": "document_end"
 		},
 		{
-			"matches": [ "https://admin.intra.42.fr/*" ],
-			"js": [ "features/admin.js" ],
+			"matches": [
+				"https://admin.intra.42.fr/*"
+			],
+			"js": [
+				"features/admin.js"
+			],
 			"run_at": "document_end"
 		},
 		{
-			"matches": [ "*://profile.intra.42.fr/", "*://*.intra.42.fr/users/*" ],
-			"exclude_matches": [ "*://signin.intra.42.fr/users/sign_in" ],
-			"js": [ "features/profiles.js", "features/logtimes.js", "features/campus/codam/coa-titles.js" ],
+			"matches": [
+				"*://profile.intra.42.fr/",
+				"*://*.intra.42.fr/users/*"
+			],
+			"exclude_matches": [
+				"*://signin.intra.42.fr/users/sign_in"
+			],
+			"js": [
+				"features/profiles.js",
+				"features/logtimes.js",
+				"features/campus/codam/coa-titles.js"
+			],
 			"run_at": "document_idle"
 		},
 		{
-			"matches": [ "https://projects.intra.42.fr/*" ],
-			"js": [ "features/projects.js" ],
+			"matches": [
+				"https://projects.intra.42.fr/*"
+			],
+			"js": [
+				"features/projects.js"
+			],
 			"run_at": "document_end"
 		},
 		{
-			"matches": [ "https://meta.intra.42.fr/clusters", "https://meta.intra.42.fr/campus/*/clusters" ],
-			"js": [ "features/clustermap.js" ],
+			"matches": [
+				"https://meta.intra.42.fr/clusters",
+				"https://meta.intra.42.fr/campus/*/clusters"
+			],
+			"js": [
+				"features/clustermap.js"
+			],
 			"run_at": "document_end"
 		}
 	],
